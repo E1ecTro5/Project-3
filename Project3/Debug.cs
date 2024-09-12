@@ -28,5 +28,14 @@ namespace Project3
             Console.WriteLine($"[{dateTime}] {message.Chat.FirstName} used {commandName}");
             Console.ForegroundColor = ConsoleColor.White;
         }
+
+        public static void ExceptionLog(Exception e, string message)
+        {
+            DateTime dateTime = DateTime.Now;
+
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"[{dateTime}] Error! | {message}");
+            Console.ForegroundColor = ConsoleColor.White;
+        }
     }
 }
