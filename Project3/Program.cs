@@ -26,6 +26,7 @@ namespace Project3
             }
 
             client.StartReceiving(Update, Error);
+            BotStatus.startTime = DateTime.Now;
             Console.WriteLine("Bot started");
 
             while (Console.ReadLine() != "stop")

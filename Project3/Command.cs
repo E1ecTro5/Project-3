@@ -20,6 +20,9 @@ namespace Project3
                 case "/weather":
                     client.SendTextMessageAsync(message.Chat.Id, Weather.GetCurrentWeather(message.Text.Replace("/weather ", string.Empty)));
                     break;
+                case "/status":
+                    client.SendTextMessageAsync(message.Chat.Id, BotStatus.Status());
+                    break;
                 default:
                     Debug.ErrorLog("Unknown command!");
                     client.SendTextMessageAsync(message.Chat.Id, "Unknown command!");
