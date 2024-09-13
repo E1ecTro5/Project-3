@@ -29,7 +29,18 @@ namespace Project3
             Console.ForegroundColor = ConsoleColor.White;
         }
 
+        //Exception. Perhaps, i will delete it or collobarate with ErrorLog.
         public static void ExceptionLog(Exception e, string message)
+        {
+            DateTime dateTime = DateTime.Now;
+
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"[{dateTime}] Error! | {message}");
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
+        //Just error
+        public static void ErrorLog(string message)
         {
             DateTime dateTime = DateTime.Now;
 

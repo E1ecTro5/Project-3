@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using Telegram.Bot;
+using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
@@ -11,11 +12,26 @@ namespace Project3
     {
         static void Main(string[] args)
         {
-            //Starting the bot
-            var client = new TelegramBotClient(GetToken());
-            client.StartReceiving(Update, Error);
+            TelegramBotClient client = new TelegramBotClient(string.Empty);
 
-            Console.ReadLine();
+            //Starting the bot
+            try
+            {
+                client = new TelegramBotClient(GetToken());
+            }
+            catch (ArgumentException ex)
+            {
+                Debug.ExceptionLog(ex, "Where is the bot token?");
+                return;
+            }
+
+            client.StartReceiving(Update, Error);
+            Console.WriteLine("Bot started");
+
+            while (Console.ReadLine() != "stop")
+            {
+                continue;
+            }
         }
 
         private static string GetToken()
@@ -35,6 +51,7 @@ namespace Project3
             catch (DirectoryNotFoundException ex)
             {
                 Debug.ExceptionLog(ex, "Directory not found!");
+                return null;
             }
 
             //Get token.txt
@@ -46,6 +63,7 @@ namespace Project3
             catch (FileNotFoundException ex)
             {
                 Debug.ExceptionLog(ex, "Token not found!");
+                return null;
             }
 
             return botClientToken;
@@ -55,17 +73,22 @@ namespace Project3
         {
             var message = update.Message;
 
-            //just for testing
-            if (message != null)
+            if (message == null)
+                return;
+
+            if (message.Text.StartsWith('/'))
+                Command.DoCommand(client, message);
+
+            else
             {
                 Debug.Log(message);
-                await client.SendTextMessageAsync(message.Chat.Id ,message.Text);
+                await client.SendTextMessageAsync(message.Chat.Id, message.Text);
             }
         }
 
         async static Task Error(ITelegramBotClient client, Exception exception, CancellationToken token)
         {
-            //?
+            Debug.ExceptionLog(exception, "SOMETHING WRONG: " + exception.Message);
         }
     }
 }
