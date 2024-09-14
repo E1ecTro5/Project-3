@@ -17,6 +17,9 @@ namespace Project3
 
             switch (command)
             {
+                case "/start":
+                    client.SendTextMessageAsync(message.Chat.Id, "Greetings!");
+                    break;
                 case "/weather":
                     client.SendTextMessageAsync(message.Chat.Id, Weather.GetCurrentWeather(message.Text.Replace("/weather ", string.Empty)));
                     break;
