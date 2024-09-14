@@ -14,10 +14,19 @@ namespace Project3
         {
             TelegramBotClient client = new TelegramBotClient(string.Empty);
 
-            //Starting the bot
+            StartBot(client);
+
+            while (Console.ReadLine() != "stop")
+            {
+                continue;
+            }
+        }
+
+        private static void StartBot(TelegramBotClient bot)
+        {
             try
             {
-                client = new TelegramBotClient(GetToken());
+                bot = new TelegramBotClient(GetToken());
             }
             catch (ArgumentException ex)
             {
@@ -25,14 +34,9 @@ namespace Project3
                 return;
             }
 
-            client.StartReceiving(Update, Error);
+            bot.StartReceiving(Update, Error);
             BotStatus.startTime = DateTime.Now;
             Console.WriteLine("Bot started");
-
-            while (Console.ReadLine() != "stop")
-            {
-                continue;
-            }
         }
 
         private static string GetToken()

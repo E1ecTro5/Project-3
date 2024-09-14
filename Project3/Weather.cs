@@ -52,6 +52,7 @@ namespace Project3
             string userURL = $"https://api.openweathermap.org/data/2.5/weather?q={cityName}&appid={apiKey}&units=metric";
 
             string weatherResponse = string.Empty;
+
             try
             {
                 weatherResponse = client.GetStringAsync(userURL).Result;
@@ -72,8 +73,8 @@ namespace Project3
             string currentCloudiness = formattedResponseMain["clouds"]["all"].ToString();
 
             return $"Current weather in {cityName}:" +
-                $"\nWeather: {currentWeather}" +
                 "\n" +
+                $"\nWeather: {currentWeather}" +
                 $"\nTemprature: {(int)Convert.ToDouble(currentTemprature)}°C" +
                 $"\nFeels like: {(int)Convert.ToDouble(currentFeelsLike)}°C" +
                 $"\nWind speed: {currentWindSpeed}m/s" +
